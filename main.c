@@ -6,7 +6,14 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:26:51 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/27 15:26:52 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:39:08 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
+
+int	main(int ac, char **av)
+{
+	if (check_input(ac, av) == 1)
+		printf("erreur input\n");
+}

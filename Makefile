@@ -4,26 +4,26 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror -g3
 RM = rm -f
 
-SRCS = parsing.c main.c
+SRCS = parsing.c main.c utils.c
 
 OBJS = $(SRCS:.c=.o)
 
+# regle principale
 all: $(NAME)
 
-.c.o:
-		$(CC) $(FLAGS) -c $< -o $(<:.c=.o) -I includes 
-
-all : $(NAME)
-
+# regle pour creer l executable
 $(NAME): $(OBJS)
-			make -C $(LIBFT)
 			$(CC) $(OBJS) -o $(NAME)
+
+# regle pour creer les fichiers .o
+.c.o:
+		$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
 
 clean:
 		$(RM) $(OBJS)
 
 fclean : clean
-				$(RM) $(NAME)
+		$(RM) $(NAME)
 
 re : fclean all
 

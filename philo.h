@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:27:06 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/29 17:31:04 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:36:37 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 #include <pthread.h>
 #include <limits.h>
 
+# define MAX_PHILOS 200
 
-
+int	check_input(int ac, char **av);
 int	ft_atoi(const char *str);
 
 #endif
