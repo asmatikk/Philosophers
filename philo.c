@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:26:51 by afrikach          #+#    #+#             */
-/*   Updated: 2024/12/10 13:02:48 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:40:18 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void init_struct(t_table *table, char **av)
 	table->t_to_sleep = ft_atoi(av[4]) * 1000;
 	table->philo = malloc(sizeof(t_philo) * table->nb_philo);
 	table->forks = malloc(sizeof(pthread_mutex_t*) * table->nb_philo);
+	table->start_eating = timestamp();
 	if(!table->forks || !table->philo)
 		return ;
 	while (i < table->nb_philo)
@@ -37,4 +38,14 @@ void init_struct(t_table *table, char **av)
 		table->philo[i].right_fork = (i + 1) % table->nb_philo;
 		i++;
 	}
+}
+
+int	check_free_forks(t_philo *philo, int id)
+{
+	
+	if (((id == philo->left_fork) && (id + 1 == philo->right_fork)) 
+		|| ((id == philo->left_fork) && (id == philo->table->nb_philo -1)))
+		return (1);
+	else 
+		return (0);
 }

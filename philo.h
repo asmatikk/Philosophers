@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:27:06 by afrikach          #+#    #+#             */
-/*   Updated: 2024/12/10 12:53:56 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:42:06 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <limits.h>
+# include <sys/time.h>
 
 # define MAX_PHILOS 200
 
@@ -37,12 +38,15 @@ typedef struct s_table
 	int	t_to_die;
 	int	t_to_eat;
 	int	t_to_sleep;
+	long int	start_eating;
 	t_philo	*philo;
 }	t_table;
 
-int		check_input(int ac, char **av);
-void	init_struct(t_table *table, char **av);
-int		ft_atoi(const char *str);
-void	*philo_routine(void *arg);
+int			check_input(int ac, char **av);
+void		init_struct(t_table *table, char **av);
+int			ft_atoi(const char *str);
+void		*philo_routine(void *arg);
+int			check_free_forks(t_philo *philo, int id);
+long int	timestamp(void);
 
 #endif

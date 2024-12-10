@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 17:06:11 by afrikach          #+#    #+#             */
-/*   Updated: 2024/11/29 17:09:05 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:32:57 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,12 @@ int	ft_atoi(const char *str)
 	if (nb > INT_MAX)
 		return (-1);
 	return (nb * sign);
+}
+
+long int	timestamp(void)
+{
+	struct timeval		tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
