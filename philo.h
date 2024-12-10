@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:27:06 by afrikach          #+#    #+#             */
-/*   Updated: 2024/12/05 16:48:01 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:53:56 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philo
 typedef struct s_table
 {
 	int	nb_philo;
-	pthread_mutex_t *forks;
+	pthread_mutex_t **forks;
 	int	t_to_die;
 	int	t_to_eat;
 	int	t_to_sleep;
