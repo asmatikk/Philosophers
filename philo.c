@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:26:51 by afrikach          #+#    #+#             */
-/*   Updated: 2024/12/05 17:26:20 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:01:00 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,3 @@ void init_struct(t_table *table, char **av)
 		i++;
 	}
 }
-
-
-
-// void	*philo_routine(void *arg)
-// {
-//   	t_philo *philo;
-	
-// 	philo = (t_philo *)arg;
-// 	arg->t
-//     printf("Philosopher %d is thinking...\n", philo->id);
-//     printf("Philosopher %d is eating with forks %d and %d.\n", philo->id, philo->left_fork, philo->right_fork);
-
-//     printf("The table has %d philosophers.\n", philo->table->nb_philo);
-
-//     return NULL;
-// }
