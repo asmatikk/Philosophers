@@ -1,7 +1,7 @@
 NAME = philo
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g3 -pthread
+FLAGS = -Wall -Wextra -Werror 
 RM = rm -f
 
 SRCS = parsing.c main.c utils.c philo.c
@@ -11,7 +11,7 @@ OBJS = $(SRCS:.c=.o)
 # regle principale
 all: $(NAME)
 
-# regle pour creer l executable
+# regle pour creer l executable -fsanitize=thread -g
 $(NAME): $(OBJS)
 			$(CC) $(OBJS) -o $(NAME)
 
