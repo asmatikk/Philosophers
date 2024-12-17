@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:27:06 by afrikach          #+#    #+#             */
-/*   Updated: 2024/12/12 12:51:47 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:29:41 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				left_fork;
 	int				right_fork;
+	long int		start_eating;
+	int				nb_meals;
 	long int		last_meal;
 	struct s_table	*table;
 }					t_philo;
@@ -43,7 +45,10 @@ typedef struct s_philo
 typedef struct s_table
 {
 	int				nb_philo;
-	pthread_mutex_t	**forks;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t death;
+	pthread_mutex_t	print;
+	int				nb_death;
 	int				t_to_die;
 	int				t_to_eat;
 	int				t_to_sleep;
@@ -54,11 +59,15 @@ typedef struct s_table
 
 
 int			check_input(int ac, char **av);
-void		init_struct(t_table *table, char **av);
+void		init_struct_table(t_table *table, int ac, char **av);
+void		init_struct_philo(t_table *table);
 int			ft_atoi(const char *str);
 void		*philo_routine(void *arg);
 int			check_free_forks(t_philo *philo, int id);
 long int	timestamp(void);
 void		print_routine(t_philo *philo, char c);
+int			check_philos_death(t_philo	*philo);
+void		philo_eat(t_philo *philo, t_table *table);
+int			philo_alone(t_philo *philo);
 
 #endif

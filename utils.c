@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 17:06:11 by afrikach          #+#    #+#             */
-/*   Updated: 2024/12/12 12:59:24 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:05:03 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,3 @@ long int	timestamp(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	print_routine(t_philo *philo, char c)
-{
-	long int	time;
-	int			philo_id;
-
-	time = timestamp() - philo->table->start_routine;
-	philo_id = philo->id;
-	if (c == 'f')
-		printf("%s%ld %d has taken a fork%s\n", BWHITE, time, philo_id + 1, RESET);
-	if (c == 'e')
-	{
-		printf("%s%ld %d is eating%s\n", BGREEN, time, philo_id + 1, RESET);
-		usleep(philo->table->t_to_eat);
-		philo->last_meal = timestamp();
-	}
-	if (c == 's')
-	{
-		printf("%s%ld %d is sleeping%s\n", BCYAN, time, philo_id + 1, RESET);
-		usleep(philo->table->t_to_sleep);
-	}
-	if (c == 't')
-		printf("%s%ld %d is thinking%s\n", BMAG, time, philo_id + 1, RESET);
-	if (c == 'd')
-		printf("%s%ld %d is died%s\n", BRED, time, philo_id + 1, RESET);
-		
-}

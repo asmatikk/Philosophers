@@ -6,7 +6,7 @@
 /*   By: afrikach <afrikach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:26:51 by afrikach          #+#    #+#             */
-/*   Updated: 2024/12/12 14:55:14 by afrikach         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:30:21 by afrikach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,27 @@ void *philo_routine(void *arg)
 		
 	philo = (t_philo *)arg;
 	table = philo->table;
-
-	if (philo->id % 2 != 0)
-		usleep(table->t_to_eat);
-	print_routine(philo, 't');
+	if (philo_alone(philo) == 1)
+		return (NULL);
 	while(1)
 	{
-			pthread_mutex_lock(table->forks[philo->left_fork]);
-			print_routine(philo, 'f');
-			pthread_mutex_lock(table->forks[philo->right_fork]);
-			print_routine(philo, 'f');
-			print_routine(philo, 'e');
-			philo->last_meal = timestamp();
-			printf("philo n%d needs %ld time to eat\n", philo->id, philo->last_meal - table->start_routine);
-			pthread_mutex_unlock(table->forks[philo->left_fork]);
-			pthread_mutex_unlock(table->forks[philo->right_fork]);
-			print_routine(philo, 's');
-			print_routine(philo, 't');
+		// if (check_philos_death(philo) == 1)
+		// 	break ;
+		// if (table->nb_death >= 1)
+		// 	break ;
+		philo_eat(philo, table);
+		if (table->times_must_eat != -1 && table->times_must_eat == philo->nb_meals)
+			break ;
+		if (check_philos_death(philo) == 1)
+			break ;
+		print_routine(philo, 's');
+		if (check_philos_death(philo) == 1)
+			break ;
+		print_routine(philo, 't');
 	}
     return (NULL);
 }
+
 
 int	main(int ac, char **av)
 {
@@ -50,33 +51,48 @@ int	main(int ac, char **av)
 	table = malloc(sizeof(t_table));
 	if(!table)
 		return (0);
-	init_struct(table, av);
+	init_struct_table(table, ac, av);
 	i = 0;
 	while (i < table->nb_philo)
 	{
 		pthread_create(&table->philo[i].thread, NULL, &philo_routine, &table->philo[i]);
+		usleep(200);
 		i++;
 	}
 	i = 0;
 	while(i < table->nb_philo)
 		pthread_join(table->philo[i++].thread, NULL);
-	int j = 0;
-	while (j < table->nb_philo)
-		pthread_mutex_destroy(table->forks[j++]);
+	i = 0;
+	while (i < table->nb_philo)
+		pthread_mutex_destroy(&table->forks[i++]);
+	pthread_mutex_destroy(&table->print);
+	pthread_mutex_destroy(&table->death);
+	free(table->forks);
 	free(table->philo);
 	free(table);
 	return (0);
 }
 
-// void	*check_philo_death(void *arg)
-// {
-// 	t_table	*table;
+int	check_philos_death(t_philo	*philo)
+{
+	long int	current;
 	
-// 	table = (t_table *)
-// }
-
-// Regarder pour chacun la dernier fois qu'ils ont manger et faire last_meal - t_to_death.
-// si = a 0 alors philo doit mourir et on break.
-// trouver un moyen de verifier si les philos ne sont pas morts pendant chaque Usleep.
-
+	pthread_mutex_lock(&philo->table->death);
+	current = timestamp();
+	if (philo->table->nb_death >= 1)
+	{
+		pthread_mutex_unlock(&philo->table->death);
+			return (1);
+	}
+	if ((philo->last_meal + philo->table->t_to_die / 1000) < (current + philo->table->t_to_eat / 1000))
+	{
+		if (philo->table->nb_death == 0)
+			print_routine(philo, 'd');
+		philo->table->nb_death++;
+		pthread_mutex_unlock(&philo->table->death);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->table->death);
+	return (0);
+}
 

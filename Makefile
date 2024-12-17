@@ -1,10 +1,10 @@
 NAME = philo
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror -g3
 RM = rm -f
 
-SRCS = parsing.c main.c utils.c philo.c
+SRCS = parsing.c main.c utils.c philo.c init_struct.c
 
 OBJS = $(SRCS:.c=.o)
 
