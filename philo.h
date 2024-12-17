@@ -28,8 +28,8 @@
 # define BMAG "\033[1;35m"
 # define BCYAN "\033[1;36m"
 # define BWHITE "\033[1;37m"
-
 # define RESET "\033[0m"
+
 typedef struct s_philo
 {
 	int				id;
@@ -46,7 +46,7 @@ typedef struct s_table
 {
 	int				nb_philo;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t death;
+	pthread_mutex_t	death;
 	pthread_mutex_t	print;
 	int				nb_death;
 	int				t_to_die;
@@ -57,7 +57,6 @@ typedef struct s_table
 	t_philo			*philo;
 }					t_table;
 
-
 int			check_input(int ac, char **av);
 void		init_struct_table(t_table *table, int ac, char **av);
 void		init_struct_philo(t_table *table);
@@ -65,7 +64,8 @@ int			ft_atoi(const char *str);
 void		*philo_routine(void *arg);
 int			check_free_forks(t_philo *philo, int id);
 long int	timestamp(void);
-void		print_routine(t_philo *philo, char c);
+void		print_routine_eat(t_philo *philo, char c);
+void		print_routine_else(t_philo *philo, char c);
 int			check_philos_death(t_philo	*philo);
 void		philo_eat(t_philo *philo, t_table *table);
 int			philo_alone(t_philo *philo);

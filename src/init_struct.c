@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 // initialisation des structures pour les philos et de la table
 // initialisation des forks (Mutex) et des philos
-void init_struct_table(t_table *table, int ac, char **av)
+void	init_struct_table(t_table *table, int ac, char **av)
 {
 	table->nb_philo = ft_atoi(av[1]);
 	table->t_to_die = ft_atoi(av[2]) * 1000;
@@ -25,10 +25,10 @@ void init_struct_table(t_table *table, int ac, char **av)
 		table->times_must_eat = ft_atoi(av[5]);
 	table->philo = malloc(sizeof(t_philo) * table->nb_philo);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
-	if(!table->forks || !table->philo)
+	if (!table->forks || !table->philo)
 	{
-		free(table->forks);
-        free(table->philo);
+		free (table->forks);
+		free (table->philo);
 		return ;
 	}
 	pthread_mutex_init(&table->death, NULL);
@@ -38,21 +38,19 @@ void init_struct_table(t_table *table, int ac, char **av)
 	init_struct_philo(table);
 }
 
-void init_struct_philo(t_table *table)
+void	init_struct_philo(t_table *table)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < table->nb_philo)
 	{
 		table->philo[i].table = table;
 		pthread_mutex_init(&table->forks[i], NULL);
-		table->philo[i].id = i;
+		table->philo[i].id = i + 1;
 		table->philo[i].left_fork = i;
 		table->philo[i].right_fork = (i + 1) % table->nb_philo;
 		table->philo[i].nb_meals = 0;
-		table->philo[i].last_meal = timestamp();
 		i++;
 	}
 }
-

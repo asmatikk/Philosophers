@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -48,3 +48,29 @@ long int	timestamp(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
+int	check_philos_death(t_philo	*philo)
+{
+	long int	current;
+	long int	die;
+	long int	eat;
+
+	pthread_mutex_lock(&philo->table->death);
+	current = timestamp();
+	if (philo->table->nb_death >= 1)
+	{
+		pthread_mutex_unlock(&philo->table->death);
+		return (1);
+	}
+	die = (philo->last_meal + philo->table->t_to_die / 1000);
+	eat = (current + philo->table->t_to_eat / 1000);
+	if (die < eat)
+	{
+		if (philo->table->nb_death == 0)
+			print_routine_else(philo, 'd');
+		philo->table->nb_death++;
+		pthread_mutex_unlock(&philo->table->death);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->table->death);
+	return (0);
+}

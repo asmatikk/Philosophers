@@ -1,10 +1,10 @@
 NAME = philo
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRCS = parsing.c main.c utils.c philo.c init_struct.c
+SRCS = src/parsing.c src/main.c src/utils.c src/philo.c src/init_struct.c src/print_routine.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -13,7 +13,7 @@ all: $(NAME)
 
 # regle pour creer l executable -fsanitize=thread -g
 $(NAME): $(OBJS)
-			$(CC) $(OBJS) -o $(NAME)
+			$(CC) -fsanitize=thread -g $(OBJS) -o $(NAME)
 
 # regle pour creer les fichiers .o
 .c.o:

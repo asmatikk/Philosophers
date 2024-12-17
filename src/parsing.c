@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 //check if only digits
 
@@ -19,7 +19,7 @@ int	check_digit(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (1);
@@ -32,9 +32,9 @@ int	check_input(int ac, char **av)
 {
 	int	i;
 	int	nb;
-		
+
 	i = 1;
-	while(i < ac)
+	while (i < ac)
 	{
 		if (check_digit(av[i]) == 1)
 			return (1);
