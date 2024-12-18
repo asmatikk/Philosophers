@@ -68,17 +68,12 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct_table(table, ac, av);
 	i = 0;
-	// for (int i = 0; i < table->nb_philo; i++)
-	// {
-	// 	printf("ID : %d | left %d | right %d\n", table->philo[i].id, table->philo[i].left_fork, table->philo[i].right_fork);
-	// }
-	// return (0);
 	while (i < table->nb_philo)
 	{
-		table->philo[i].last_meal = timestamp();
+		table->philo[i].last_meal = timestamp() + table->t_to_die / 1000;
 		pthread_create(&table->philo[i].thread,
 			NULL, &philo_routine, &table->philo[i]);
-		usleep(200);
+		// usleep(200);
 		i++;
 	}
 	destroy_mutex(table);

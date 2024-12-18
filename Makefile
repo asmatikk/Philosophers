@@ -13,7 +13,7 @@ all: $(NAME)
 
 # regle pour creer l executable -fsanitize=thread -g
 $(NAME): $(OBJS)
-			$(CC) -fsanitize=thread -g $(OBJS) -o $(NAME)
+			$(CC) $(OBJS) -o $(NAME)
 
 # regle pour creer les fichiers .o
 .c.o:

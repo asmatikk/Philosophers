@@ -56,7 +56,7 @@ int	check_impair_philos_death(t_philo *philo, t_table *table)
 {
 	(void)table;
 	print_routine_eat(philo, 'f');
-	// check_philos_death(philo);
+	check_philos_death(philo);
 	if (table->nb_death >= 1)
 	{
 		pthread_mutex_unlock(&table->forks[philo->left_fork]);
@@ -69,7 +69,7 @@ int	check_impair_philos_death(t_philo *philo, t_table *table)
 int	check_pair_philos_death(t_philo *philo, t_table *table)
 {
 	print_routine_eat(philo, 'f');
-	// check_philos_death(philo);
+	check_philos_death(philo);
 	if (table->nb_death >= 1)
 	{
 		pthread_mutex_unlock(&table->forks[philo->right_fork]);

@@ -30,6 +30,8 @@ void	print_routine_eat(t_philo *philo, char c)
 {
 	long int	time;
 
+	if (philo->table->nb_death >= 1)
+		return ;
 	time = timestamp() - philo->table->start_routine;
 	pthread_mutex_lock(&philo->table->print);
 	if (c == 'f')
@@ -51,6 +53,8 @@ void	print_routine_else(t_philo *philo, char c)
 {
 	long int	time;
 
+	if (philo->table->nb_death >= 1)
+		return ;
 	time = timestamp() - philo->table->start_routine;
 	pthread_mutex_lock(&philo->table->print);
 	if (c == 's')
